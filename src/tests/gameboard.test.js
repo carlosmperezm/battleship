@@ -141,3 +141,50 @@ describe('Missed Attacks Tests', () => {
     expect(gameboard.missedAttacks).toEqual([])
   });
 })
+
+describe('Sunk ships tests', () => {
+  let gameboard;
+
+  beforeEach(() => {
+    gameboard = new Gameboard(8, 8);
+  });
+  test('Sunk a ship, so returns true', () => {
+    const ship = new Ship(2);
+    gameboard.placeShip(ship, [[0, 1], [1, 1]]);
+    gameboard.receiveAttack(0, 1);
+    gameboard.receiveAttack(1, 1);
+
+    expect(gameboard.isSunk()).toBe(true);
+  });
+  test('Do not sunk a ship, so returns false', () => {
+    const ship = new Ship(2);
+    gameboard.placeShip(ship, [[0, 1], [1, 1]]);
+    gameboard.receiveAttack(0, 1);
+
+    expect(gameboard.isSunk()).toBe(false);
+  });
+  test('Just a few ships are sunk but not all, so the board returns false', () => {
+    const ship1 = new Ship(2);
+    gameboard.placeShip(ship1, [[0, 1], [1, 1]]);
+    const ship2 = new Ship(4);
+    gameboard.placeShip(ship2, [[5, 5], [5, 6], [5, 7], [5, 8]]);
+    const ship3 = new Ship(3);
+    gameboard.placeShip(ship3, [[8, 8], [8, 7], [8, 6]]);
+    const ship4 = new Ship(2);
+    gameboard.placeShip(ship4, [[0, 0], [1, 0]]);
+
+    //Ship 1 hit entirely
+    gameboard.receiveAttack(0, 1);
+    gameboard.receiveAttack(1, 1);
+    //Ship 3 hit entirely
+    gameboard.receiveAttack(8, 8);
+    gameboard.receiveAttack(8, 7);
+    gameboard.receiveAttack(8, 6);
+    //Ship 4 hit entirely
+    gameboard.receiveAttack(0, 0);
+    gameboard.receiveAttack(1, 0);
+
+    expect(gameboard.isSunk()).toBe(false);
+  });
+
+})
