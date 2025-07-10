@@ -37,5 +37,12 @@ export class Gameboard {
     }
     this.#missedAttacks.push([xAxis, yAxis]);
   }
+  isSunk() {
+    for (let shipAndPosition of this.shipsAndPositions) {
+      const { ship, position } = shipAndPosition;
+      if (!ship.isSunk()) return false;
+    }
+    return true;
+  }
 
 }
