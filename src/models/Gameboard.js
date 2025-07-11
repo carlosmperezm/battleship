@@ -8,7 +8,7 @@ export class Gameboard {
     this.#board = [];
     this.#shipsAndPositions = [];
     this.#missedAttacks = [];
-    for (let i = 0; i <= yAxis; i++) {
+    for (let i = 0; i < yAxis; i++) {
       this.#board.push(new Array(xAxis));
     }
   }
@@ -18,8 +18,10 @@ export class Gameboard {
   get missedAttacks() {
     return this.#missedAttacks;
   }
+  get board() {
+    return this.#board
+  }
   placeShip(ship, coordinates) {
-    // this.#ships.push(coordinates);
     this.#shipsAndPositions.push({
       ship,
       position: coordinates,

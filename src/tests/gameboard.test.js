@@ -187,4 +187,16 @@ describe('Sunk ships tests', () => {
     expect(gameboard.isSunk()).toBe(false);
   });
 
+});
+describe('Board Tests', () => {
+
+  test('Boards set the lengths right', () => {
+    const gameboard = new Gameboard(16, 16);
+    const gameboard2 = new Gameboard(7, 4);
+
+    expect(gameboard.board).toHaveLength(16);
+    expect(gameboard.board[0]).toHaveLength(16)
+    expect(gameboard2.board).toHaveLength(4);
+    expect(gameboard2.board[0]).toHaveLength(7)
+  })
 })
