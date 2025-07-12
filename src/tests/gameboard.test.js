@@ -26,7 +26,7 @@ describe('Ship Tests', () => {
     const ship1 = new Ship(3);
     const coordinates2 = [[1, 4], [2, 4]];
     const ship2 = new Ship(2);
-    const coordinates3 = [[4, 4], [4, 5], [4, 6], [4, 7], [4, 8]];
+    const coordinates3 = [[4, 3], [4, 4], [4, 5], [4, 6], [4, 7]];
     const ship3 = new Ship(5);
 
     gameboard.placeShip(ship1, coordinates1);
@@ -34,6 +34,9 @@ describe('Ship Tests', () => {
     expect(gameboard.shipsAndPositions).toEqual([
       { ship: ship1, position: coordinates1 }
     ]);
+    expect(gameboard.board[1][1]).toBe(true);
+    expect(gameboard.board[2][1]).toBe(true);
+    expect(gameboard.board[3][1]).toBe(true);
 
     gameboard.placeShip(ship2, coordinates2);
     expect(gameboard.shipsAndPositions).toHaveLength(2);
@@ -41,6 +44,8 @@ describe('Ship Tests', () => {
       { ship: ship1, position: coordinates1 },
       { ship: ship2, position: coordinates2 }
     ]);
+    expect(gameboard.board[1][4]).toBe(true);
+    expect(gameboard.board[2][4]).toBe(true);
 
     gameboard.placeShip(ship3, coordinates3);
     expect(gameboard.shipsAndPositions).toHaveLength(3);
@@ -49,6 +54,11 @@ describe('Ship Tests', () => {
       { ship: ship2, position: coordinates2 },
       { ship: ship3, position: coordinates3 }
     ]);
+    expect(gameboard.board[4][3]).toBe(true);
+    expect(gameboard.board[4][4]).toBe(true);
+    expect(gameboard.board[4][5]).toBe(true);
+    expect(gameboard.board[4][6]).toBe(true);
+    expect(gameboard.board[4][7]).toBe(true);
   });
 
 });
@@ -199,7 +209,18 @@ describe('Board Tests', () => {
 
     expect(gameboard.board).toHaveLength(16);
     expect(gameboard.board[0]).toHaveLength(16)
+    gameboard.board.forEach((yAxis) => {
+      yAxis.forEach((xCoordinate) => {
+        expect(xCoordinate).toBe(false);
+      });
+    });
+
     expect(gameboard2.board).toHaveLength(4);
     expect(gameboard2.board[0]).toHaveLength(7)
+    gameboard2.board.forEach((yAxis) => {
+      yAxis.forEach((xCoordinate) => {
+        expect(xCoordinate).toBe(false);
+      });
+    });
   })
 })
