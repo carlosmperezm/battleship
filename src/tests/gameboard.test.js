@@ -16,9 +16,9 @@ describe('Ship Tests', () => {
     expect(gameboard.shipsAndPositions).toEqual([
       { ship, position: coordinates }
     ]);
-    expect(gameboard.board[1][1]).toBe(true);
-    expect(gameboard.board[2][1]).toBe(true);
-    expect(gameboard.board[3][1]).toBe(true);
+    expect(gameboard.board[1][1]).toBe('ship');
+    expect(gameboard.board[2][1]).toBe('ship');
+    expect(gameboard.board[3][1]).toBe('ship');
 
   });
   test('Place different ships on the board with the right coordinats', () => {
@@ -34,9 +34,9 @@ describe('Ship Tests', () => {
     expect(gameboard.shipsAndPositions).toEqual([
       { ship: ship1, position: coordinates1 }
     ]);
-    expect(gameboard.board[1][1]).toBe(true);
-    expect(gameboard.board[2][1]).toBe(true);
-    expect(gameboard.board[3][1]).toBe(true);
+    expect(gameboard.board[1][1]).toBe('ship');
+    expect(gameboard.board[2][1]).toBe('ship');
+    expect(gameboard.board[3][1]).toBe('ship');
 
     gameboard.placeShip(ship2, coordinates2);
     expect(gameboard.shipsAndPositions).toHaveLength(2);
@@ -44,8 +44,8 @@ describe('Ship Tests', () => {
       { ship: ship1, position: coordinates1 },
       { ship: ship2, position: coordinates2 }
     ]);
-    expect(gameboard.board[1][4]).toBe(true);
-    expect(gameboard.board[2][4]).toBe(true);
+    expect(gameboard.board[1][4]).toBe('ship');
+    expect(gameboard.board[2][4]).toBe('ship');
 
     gameboard.placeShip(ship3, coordinates3);
     expect(gameboard.shipsAndPositions).toHaveLength(3);
@@ -54,11 +54,11 @@ describe('Ship Tests', () => {
       { ship: ship2, position: coordinates2 },
       { ship: ship3, position: coordinates3 }
     ]);
-    expect(gameboard.board[4][3]).toBe(true);
-    expect(gameboard.board[4][4]).toBe(true);
-    expect(gameboard.board[4][5]).toBe(true);
-    expect(gameboard.board[4][6]).toBe(true);
-    expect(gameboard.board[4][7]).toBe(true);
+    expect(gameboard.board[4][3]).toBe('ship');
+    expect(gameboard.board[4][4]).toBe('ship');
+    expect(gameboard.board[4][5]).toBe('ship');
+    expect(gameboard.board[4][6]).toBe('ship');
+    expect(gameboard.board[4][7]).toBe('ship');
   });
 
 });
@@ -98,15 +98,15 @@ describe('Receive Attack Tests', () => {
     const coordinates2 = [[1, 4], [2, 4]]
     const ship2 = new Ship(2);
     gameboard.placeShip(ship2, coordinates2);
-    const coordinates3 = [[0, 8], [1, 8], [2, 8], [3, 8], [4, 8]];
+    const coordinates3 = [[0, 7], [1, 7], [2, 7], [3, 7], [4, 7]];
     const ship3 = new Ship(5);
     gameboard.placeShip(ship3, coordinates3);
 
     // Ship 1 Receives 1 attack
     gameboard.receiveAttack(1, 1,);
     // Ship 3 receives 2 attacks
-    gameboard.receiveAttack(0, 8,);
-    gameboard.receiveAttack(3, 8,);
+    gameboard.receiveAttack(0, 7,);
+    gameboard.receiveAttack(3, 7,);
 
     expect(ship.hits).toBe(1);
     expect(ship2.hits).toBe(0);
@@ -118,11 +118,23 @@ describe('Receive Attack Tests', () => {
     const ship2 = new Ship(2);
     gameboard.placeShip(ship2, [[1, 4], [2, 4]]);
 
-    gameboard.receiveAttack(1, 8);
+    gameboard.receiveAttack(1, 7);
     gameboard.receiveAttack(0, 0);
 
     expect(ship.hits).toBe(0);
     expect(ship2.hits).toBe(0);
+  });
+  test('Attack hits so the place in the board changes to hit instead', () => {
+    const ship = new Ship(3);
+    gameboard.placeShip(ship, [[0, 1], [1, 1], [2, 1]]);
+    const ship2 = new Ship(2);
+    gameboard.placeShip(ship2, [[1, 4], [2, 4]]);
+
+    gameboard.receiveAttack(0, 1);
+    gameboard.receiveAttack(2, 4);
+
+    expect(gameboard.board[1][0]).toBe('hit');
+    expect(gameboard.board[4][2]).toBe('hit');
   });
 });
 
@@ -131,14 +143,14 @@ describe('Missed Attacks Tests', () => {
     const gameboard = new Gameboard(8, 8);
     const ship = new Ship(3);
     gameboard.placeShip(ship, [[0, 1], [1, 1], [2, 1]]);
-    gameboard.receiveAttack(1, 9);
+    gameboard.receiveAttack(1, 7);
 
     expect(gameboard.missedAttacks).toHaveLength(1);
-    expect(gameboard.missedAttacks).toEqual([[1, 9]])
+    expect(gameboard.missedAttacks).toEqual([[1, 7]])
 
-    gameboard.receiveAttack(2, 9);
+    gameboard.receiveAttack(2, 7);
     expect(gameboard.missedAttacks).toHaveLength(2);
-    expect(gameboard.missedAttacks).toEqual([[1, 9], [2, 9]])
+    expect(gameboard.missedAttacks).toEqual([[1, 7], [2, 7]])
   });
   test('Attacks that hit are not saved', () => {
     const gameboard = new Gameboard(8, 8);
@@ -152,6 +164,19 @@ describe('Missed Attacks Tests', () => {
     gameboard.receiveAttack(1, 1);
     expect(gameboard.missedAttacks).toHaveLength(0);
     expect(gameboard.missedAttacks).toEqual([])
+  });
+  test('Attack does not hit so the place in the board changes to missed instead', () => {
+    const gameboard = new Gameboard(8, 8);
+    const ship = new Ship(3);
+    gameboard.placeShip(ship, [[0, 1], [1, 1], [2, 1]]);
+    const ship2 = new Ship(2);
+    gameboard.placeShip(ship2, [[1, 4], [2, 4]]);
+
+    gameboard.receiveAttack(0, 7);
+    gameboard.receiveAttack(2, 7);
+
+    expect(gameboard.board[7][0]).toBe('missed');
+    expect(gameboard.board[7][2]).toBe('missed');
   });
 })
 
