@@ -20,5 +20,11 @@ export function startGame() {
 
   DOMController.placeShip(ship1, player1, [[0, 0], [0, 1]]);
   DOMController.placeShip(ship2, player1, [[3, 3], [4, 3], [5, 3], [6, 3]]);
+
+  DOMController.renderShip(ship2, player1);
+  DOMController.renderShip(ship1, player1);
+
+  DOMController.renderShip(ship1, player2);
+  DOMController.renderShip(ship2, player2);
 }
 

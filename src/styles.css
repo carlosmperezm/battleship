@@ -9,9 +9,10 @@ body {
 main {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 2fr 1fr;
   grid-template-areas:
     'player1 player2'
-    /* 'player1' 'player2' */
+    'ships1 ships2'
   ;
 }
 
@@ -47,4 +48,17 @@ main {
 
 .board.player2 {
   grid-area: player2;
+}
+
+.ships-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.ships-container.player1 {
+  grid-area: ships1
+}
+
+.ships-container.player2 {
+  grid-area: ships2
 }

@@ -29,8 +29,7 @@ export class DOMController {
     if (previousBoardDiv) {
       console.log('YES')
       DOMController.main.removeChild(previousBoardDiv);
-    } else { console.log('NO') }
-
+    }
     const boardDiv = DOMController.createBoard(player);
     DOMController.main.appendChild(boardDiv);
   }
@@ -38,8 +37,28 @@ export class DOMController {
     player.gameboard.placeShip(ship, coordinates);
     DOMController.renderBoard(player);
   }
+  static createShip(ship) {
+    const shipDiv = document.createElement('div');
+    for (let i = 0; i < ship.length; i++) {
+      const div = document.createElement('div');
+      div.classList.add('board-square', 'ship');
+      shipDiv.appendChild(div);
+    }
+    return shipDiv;
+  }
+  static renderShip(ship, player) {
+    const shipDiv = DOMController.createShip(ship);
+    let shipsContainer = document.querySelector(`.ships-container.${player.name}`);
+    if (!shipsContainer) {
+      shipsContainer = document.createElement('div');
+    }
+    shipsContainer.classList.add('ships-container', player.name);
+    shipsContainer.appendChild(shipDiv);
+    DOMController.main.appendChild(shipsContainer);
+  }
 
   static get main() {
     return DOMController.#main;
   }
+
 }
