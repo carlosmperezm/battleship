@@ -3,13 +3,19 @@ export class Gameboard {
   #board;
   #shipsAndPositions;
   #missedAttacks;
+  #length;
 
   constructor(xAxis, yAxis) {
+    this.#length = [xAxis, yAxis];
     this.#board = [];
     this.#shipsAndPositions = [];
     this.#missedAttacks = [];
     for (let i = 0; i < yAxis; i++) {
-      this.#board.push(new Array(xAxis));
+      let xRow = [];
+      for (let j = 0; j < xAxis; j++) {
+        xRow.push(false);
+      }
+      this.#board.push(xRow);
     }
   }
   get shipsAndPositions() {
@@ -21,11 +27,19 @@ export class Gameboard {
   get board() {
     return this.#board
   }
+  get length() {
+    return this.#length;
+  }
   placeShip(ship, coordinates) {
     this.#shipsAndPositions.push({
       ship,
       position: coordinates,
     });
+    for (let coordinate of coordinates) {
+      const x = coordinate[1];
+      const y = coordinate[0];
+      this.#board[y][x] = true;
+    }
   }
   receiveAttack(xAxis, yAxis) {
     const coordinates = [xAxis, yAxis];

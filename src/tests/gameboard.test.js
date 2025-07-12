@@ -16,6 +16,9 @@ describe('Ship Tests', () => {
     expect(gameboard.shipsAndPositions).toEqual([
       { ship, position: coordinates }
     ]);
+    expect(gameboard.board[1][1]).toBe(true);
+    expect(gameboard.board[2][1]).toBe(true);
+    expect(gameboard.board[3][1]).toBe(true);
 
   });
   test('Place different ships on the board with the right coordinats', () => {
@@ -167,9 +170,9 @@ describe('Sunk ships tests', () => {
     const ship1 = new Ship(2);
     gameboard.placeShip(ship1, [[0, 1], [1, 1]]);
     const ship2 = new Ship(4);
-    gameboard.placeShip(ship2, [[5, 5], [5, 6], [5, 7], [5, 8]]);
+    gameboard.placeShip(ship2, [[5, 4], [5, 5], [5, 6], [5, 7]]);
     const ship3 = new Ship(3);
-    gameboard.placeShip(ship3, [[8, 8], [8, 7], [8, 6]]);
+    gameboard.placeShip(ship3, [[7, 7], [7, 6], [7, 5]]);
     const ship4 = new Ship(2);
     gameboard.placeShip(ship4, [[0, 0], [1, 0]]);
 
@@ -177,9 +180,9 @@ describe('Sunk ships tests', () => {
     gameboard.receiveAttack(0, 1);
     gameboard.receiveAttack(1, 1);
     //Ship 3 hit entirely
-    gameboard.receiveAttack(8, 8);
-    gameboard.receiveAttack(8, 7);
-    gameboard.receiveAttack(8, 6);
+    gameboard.receiveAttack(7, 7);
+    gameboard.receiveAttack(7, 6);
+    gameboard.receiveAttack(7, 5);
     //Ship 4 hit entirely
     gameboard.receiveAttack(0, 0);
     gameboard.receiveAttack(1, 0);
