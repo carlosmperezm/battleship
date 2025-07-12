@@ -13,6 +13,11 @@ export function startGame() {
 
   DOMController.renderBoard(gameboard1.board)
   DOMController.renderBoard(gameboard2.board)
-}
 
+
+  const ship1 = new Ship(2);
+  DOMController.placeShip(ship1, gameboard1, [[0, 0], [0, 1]]);
+  const ship2 = new Ship(4);
+  DOMController.placeShip(ship2, gameboard1, [[3, 3], [4, 3], [5, 3], [6, 3]]);
+}
 
