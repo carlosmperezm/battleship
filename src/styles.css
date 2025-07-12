@@ -7,7 +7,12 @@ body {
 }
 
 main {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'player1 player2'
+    /* 'player1' 'player2' */
+  ;
 }
 
 .board {
@@ -34,4 +39,12 @@ main {
 
 .ship {
   background-color: blue;
+}
+
+.board.player1 {
+  grid-area: player1;
+}
+
+.board.player2 {
+  grid-area: player2;
 }
