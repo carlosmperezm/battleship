@@ -26,6 +26,8 @@ export class DOMController {
     }
     if (!player.status) {
       boardDiv.dataset.status = 'active';
+    } else {
+      boardDiv.dataset.status = 'inactive';
     }
     return boardDiv;
   }
