@@ -1,3 +1,4 @@
+import { attackHandler } from "./listeners.js";
 
 export class DOMController {
   static #main = document.querySelector('main');
@@ -6,14 +7,16 @@ export class DOMController {
     const board = player.gameboard.board;
     const boardDiv = document.createElement('div');
     boardDiv.classList.add('board', player.name);
-    for (let i = 0; i < board.length; i++) {
-      const yCoordinate = board[i];
+    for (let y = 0; y < board.length; y++) {
+      const yCoordinate = board[y];
       const yDiv = document.createElement('div');
       yDiv.classList.add('y-box');
-      for (let j = 0; j < yCoordinate.length; j++) {
-        const xCoordinate = yCoordinate[j];
+      for (let x = 0; x < yCoordinate.length; x++) {
+        const xCoordinate = yCoordinate[x];
         const xDiv = document.createElement('div');
         xDiv.classList.add('board-square', 'x-box');
+        xDiv.dataset.coordinate = [x, y];
+        xDiv.addEventListener('click', attackHandler);
         if (xCoordinate) {
           xDiv.classList.add('ship');
         }
@@ -21,19 +24,20 @@ export class DOMController {
       }
       boardDiv.appendChild(yDiv);
     }
+    if (!player.status) {
+      boardDiv.dataset.status = 'active';
+    }
     return boardDiv;
   }
   static renderBoard(player) {
     const previousBoardDiv = document.querySelector(`.${player.name}`);
-    console.log('Prev board exists ? ')
     if (previousBoardDiv) {
-      console.log('YES')
       DOMController.main.removeChild(previousBoardDiv);
     }
     const boardDiv = DOMController.createBoard(player);
     DOMController.main.appendChild(boardDiv);
   }
-  static placeShip(ship, player, coordinates) {
+  static placeShipOnBoard(ship, player, coordinates) {
     player.gameboard.placeShip(ship, coordinates);
     DOMController.renderBoard(player);
   }

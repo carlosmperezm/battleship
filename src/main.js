@@ -1,3 +1,3 @@
-import { startGame } from './ui/game.js';
+import { GameController } from './ui/GameController.js';
 
-startGame();
+GameController.startGame();
