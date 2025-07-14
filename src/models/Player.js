@@ -3,6 +3,7 @@ export class Player {
   #gameboard;
   #name;
   #active;
+  #type;
 
   constructor(board, name) {
     this.#gameboard = board;
@@ -23,5 +24,15 @@ export class Player {
   }
   deactivate() {
     this.#active = false;
+  }
+  set type(type) {
+    if (type === 'bot' || type === 'human') {
+      this.#type = type;
+    } else {
+      throw new TypeError('Only [bot] or [human] types are available');
+    }
+  }
+  get type() {
+    return this.#type;
   }
 }
