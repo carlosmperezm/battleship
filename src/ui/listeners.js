@@ -15,7 +15,6 @@ export function attackHandler(evt) {
   const currentOpponent = GameController.getCurrentOpponent();
   const opponentBoard = currentOpponent.gameboard;
 
-
   // If the board being clicked is not the enemy board don't allow attacks
   if (targetedBoard.classList.contains(`${currentPlayer.name}`)) {
     console.log('NOPE')
@@ -24,18 +23,10 @@ export function attackHandler(evt) {
 
   opponentBoard.receiveAttack(targetXCoordinate, targetYCoordinate);
 
-  // Iterate over the board to find the point being attack
-  for (let yCoordinate = 0; yCoordinate < opponentBoard.board.length; yCoordinate++) {
-    const yRow = opponentBoard.board[yCoordinate];
-    for (let xCoordinate = 0; xCoordinate < yRow.length; xCoordinate++) {
-      const point = opponentBoard.board[yCoordinate][xCoordinate]
-      // Add an according class depending on whether the attack hits a ship or not
-      if (point === 'missed') {
-        evt.target.classList.add('missed');
-      } else if (point === 'hit') {
-        evt.target.classList.add('hit');
-      }
-    }
+  //Validate if the player has sunk all opponent's ships
+  if (opponentBoard.isSunk()) {
+    GameController.finishGame();
+    return;
   }
 
   // Switch players turns 
@@ -46,20 +37,16 @@ export function attackHandler(evt) {
   DOMController.renderBoard(currentOpponent);
   DOMController.renderBoard(currentPlayer);
 
-
-
+  // The bot immediately attacks back 
   if (currentPlayer.type === 'human') {
-    // The bot immediately attacks back 
     const botAttackCoordinates = GameController.createBotAttack();
 
-    const boardToAttack = document.querySelector(`.board.${currentPlayer.name}`)
-    console.log('Active Board: ', boardToAttack);
+    const boardToAttack = document
+      .querySelector(`.board.${currentPlayer.name}`)
     const divToAttack = boardToAttack
       .querySelector(`.x-box[data-coordinate='${botAttackCoordinates}']`);
-    console.log('BOT responds: ', divToAttack);
-    // divToAttack.dispatchEvent(new Event('click'));
-    divToAttack.click();
 
+    divToAttack.click();
     DOMController.renderBoard(currentOpponent);
     DOMController.renderBoard(currentPlayer);
   } else {

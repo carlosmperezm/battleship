@@ -29,14 +29,14 @@ export class GameController {
     DOMController.placeShipOnBoard(ship1, GameController.player1, [[0, 0], [0, 1]]);
     DOMController.placeShipOnBoard(ship2, GameController.player1, [[3, 3], [4, 3], [5, 3], [6, 3]]);
 
-    DOMController.placeShipOnBoard(ship1, GameController.player2, [[0, 0], [0, 1], [0, 2]]);
+    DOMController.placeShipOnBoard(ship1, GameController.player2, [[0, 0], [0, 1]]);
     DOMController.placeShipOnBoard(ship2, GameController.player2, [[3, 3], [4, 3], [5, 3], [6, 3]]);
 
-    DOMController.renderShip(ship2, GameController.player1);
-    DOMController.renderShip(ship1, GameController.player1);
+    // DOMController.renderShip(ship2, GameController.player1);
+    // DOMController.renderShip(ship1, GameController.player1);
 
-    DOMController.renderShip(ship1, GameController.player2);
-    DOMController.renderShip(ship2, GameController.player2);
+    // DOMController.renderShip(ship1, GameController.player2);
+    // DOMController.renderShip(ship2, GameController.player2);
 
   }
   static getCurrentPlayerTurn() {
@@ -69,6 +69,9 @@ export class GameController {
       counter--;
     }
     return [xCoordinate, yCoordinate];
+  }
+  static finishGame() {
+    alert('Game ends')
   }
 
   static get gameboard1() {

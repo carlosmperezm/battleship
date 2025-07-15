@@ -42,6 +42,14 @@ main {
   background-color: blue;
 }
 
+.missed {
+  background-color: red;
+}
+
+.hit {
+  background-color: green;
+}
+
 .board.player1 {
   grid-area: player1;
 }

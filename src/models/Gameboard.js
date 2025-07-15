@@ -45,7 +45,7 @@ export class Gameboard {
     const coordinates = [xAxis, yAxis];
     for (let shipAndPositionPair of this.shipsAndPositions) {
       for (let xyCoordinates of shipAndPositionPair.position) {
-        if (xyCoordinates[0] === xAxis && xyCoordinates[1] === yAxis) {
+        if (xyCoordinates[0] === yAxis && xyCoordinates[1] === xAxis) {
           shipAndPositionPair.ship.hit();
           this.#board[yAxis][xAxis] = 'hit';
           return;
@@ -58,6 +58,7 @@ export class Gameboard {
   isSunk() {
     for (let shipAndPosition of this.shipsAndPositions) {
       const { ship, position } = shipAndPosition;
+      console.log(ship, ship.length);
       if (!ship.isSunk()) return false;
     }
     return true;
