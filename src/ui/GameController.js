@@ -17,6 +17,8 @@ export class GameController {
     GameController.#player2 = new Player(GameController.gameboard2, 'player2');
 
     GameController.player1.activate();
+    GameController.player1.type = 'human';
+    GameController.player2.type = 'bot';
 
     DOMController.renderBoard(GameController.player1)
     DOMController.renderBoard(GameController.player2)
@@ -38,7 +40,6 @@ export class GameController {
 
   }
   static getCurrentPlayerTurn() {
-    console.log('Player: ', GameController.#player1)
     if (GameController.player1.status && !GameController.player2.status) {
       return GameController.player1;
     }
@@ -50,6 +51,24 @@ export class GameController {
       return GameController.player2;
     }
     return GameController.player1;
+  }
+  static createBotAttack() {
+    const opponent = GameController.getCurrentOpponent()
+    const opponentBoard = opponent.gameboard;
+
+    let xCoordinate = Math.floor(Math.random() * 8);
+    let yCoordinate = Math.floor(Math.random() * 8);
+    let point = opponentBoard.board[yCoordinate][xCoordinate];
+
+    let counter = opponentBoard.length;
+    while (point === 'missed' || point === 'hit' || point === 'ship') {
+      if (counter <= 0) return [0, 0];
+      xCoordinate = Math.floor(Math.random() * 8);
+      yCoordinate = Math.floor(Math.random() * 8);
+      point = opponentBoard.board[yCoordinate][xCoordinate];
+      counter--;
+    }
+    return [xCoordinate, yCoordinate];
   }
 
   static get gameboard1() {

@@ -15,15 +15,18 @@ export function attackHandler(evt) {
   const currentOpponent = GameController.getCurrentOpponent();
   const opponentBoard = currentOpponent.gameboard;
 
-  // If the board is not the enemy board don't allow attacks
-  if (targetedBoard.dataset.status !== 'active') {
-    return;
-  }
+  console.log('Attacking: ', evt.target);
 
   // If the board being clicked is not the enemy board don't allow attacks
-  if (targetedBoard.classList.contains(`.${currentPlayer.name}`)) {
-    return;
-  }
+  // if (targetedBoard.classList.contains(`.${currentPlayer.name}`)) {
+  //   return;
+  // }
+  // if (targetedBoard.dataset.status === 'inactive') {
+  //   return;
+  // }
+  // if (currentPlayer.status === 'inactive') {
+  //   return;
+  // }
   opponentBoard.receiveAttack(targetXCoordinate, targetYCoordinate);
 
   // Iterate over the board to find the point being attack
@@ -47,6 +50,26 @@ export function attackHandler(evt) {
   // render the boards again with the new players status
   DOMController.renderBoard(currentOpponent);
   DOMController.renderBoard(currentPlayer);
+
+
+
+  if (currentPlayer.type === 'human') {
+    // The bot immediately attacks back 
+    const botAttackCoordinates = GameController.createBotAttack();
+
+    const boardToAttack = document.querySelector(`.board.${currentPlayer.name}`)
+    console.log('Active Board: ', boardToAttack);
+    const divToAttack = boardToAttack
+      .querySelector(`.x-box[data-coordinate='${botAttackCoordinates}']`);
+    console.log('BOT responds: ', divToAttack);
+    // divToAttack.dispatchEvent(new Event('click'));
+    divToAttack.click();
+
+    DOMController.renderBoard(currentOpponent);
+    DOMController.renderBoard(currentPlayer);
+  } else {
+    console.log('Bot attacked...Waiting for human to attack again');
+  }
 }
 
 

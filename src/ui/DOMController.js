@@ -16,7 +16,15 @@ export class DOMController {
         const xDiv = document.createElement('div');
         xDiv.classList.add('board-square', 'x-box');
         xDiv.dataset.coordinate = [x, y];
-        xDiv.addEventListener('click', attackHandler);
+
+        // If the coordinate wasn't hit or isn't any ship in there
+        // add the event
+        if (!xCoordinate) {
+          xDiv.addEventListener('click', attackHandler);
+        }
+        // If the board being created is the Bot's board, then add the clicks
+        // events so that the human player can click on the opponent's board
+
         if (xCoordinate) {
           xDiv.classList.add('ship');
         }
