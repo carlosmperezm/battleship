@@ -61,7 +61,7 @@ export class GameController {
     let point = opponentBoard.board[yCoordinate][xCoordinate];
 
     let counter = opponentBoard.length;
-    while (point === 'missed' || point === 'hit' || point === 'ship') {
+    while (point === 'missed' || point === 'hit') {
       if (counter <= 0) return [0, 0];
       xCoordinate = Math.floor(Math.random() * 8);
       yCoordinate = Math.floor(Math.random() * 8);

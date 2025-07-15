@@ -23,12 +23,6 @@ export function attackHandler(evt) {
 
   opponentBoard.receiveAttack(targetXCoordinate, targetYCoordinate);
 
-  //Validate if the player has sunk all opponent's ships
-  if (opponentBoard.isSunk()) {
-    GameController.finishGame();
-    return;
-  }
-
   // Switch players turns 
   currentPlayer.deactivate();
   currentOpponent.activate();
@@ -36,6 +30,12 @@ export function attackHandler(evt) {
   // render the boards again with the new players status
   DOMController.renderBoard(currentOpponent);
   DOMController.renderBoard(currentPlayer);
+
+  //Validate if the player has sunk all opponent's ships
+  if (opponentBoard.isSunk()) {
+    GameController.finishGame();
+    return;
+  }
 
   // The bot immediately attacks back 
   if (currentPlayer.type === 'human') {
