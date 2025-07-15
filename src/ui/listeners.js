@@ -15,18 +15,13 @@ export function attackHandler(evt) {
   const currentOpponent = GameController.getCurrentOpponent();
   const opponentBoard = currentOpponent.gameboard;
 
-  console.log('Attacking: ', evt.target);
 
   // If the board being clicked is not the enemy board don't allow attacks
-  // if (targetedBoard.classList.contains(`.${currentPlayer.name}`)) {
-  //   return;
-  // }
-  // if (targetedBoard.dataset.status === 'inactive') {
-  //   return;
-  // }
-  // if (currentPlayer.status === 'inactive') {
-  //   return;
-  // }
+  if (targetedBoard.classList.contains(`${currentPlayer.name}`)) {
+    console.log('NOPE')
+    return;
+  }
+
   opponentBoard.receiveAttack(targetXCoordinate, targetYCoordinate);
 
   // Iterate over the board to find the point being attack
