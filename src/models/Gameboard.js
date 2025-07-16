@@ -36,8 +36,8 @@ export class Gameboard {
       position: coordinates,
     });
     for (let coordinate of coordinates) {
-      const x = coordinate[1];
-      const y = coordinate[0];
+      const x = coordinate[0];
+      const y = coordinate[1];
       this.#board[y][x] = 'ship';
     }
   }
@@ -45,7 +45,7 @@ export class Gameboard {
     const coordinates = [xAxis, yAxis];
     for (let shipAndPositionPair of this.shipsAndPositions) {
       for (let xyCoordinates of shipAndPositionPair.position) {
-        if (xyCoordinates[0] === yAxis && xyCoordinates[1] === xAxis) {
+        if (xyCoordinates[0] === xAxis && xyCoordinates[1] === yAxis) {
           shipAndPositionPair.ship.hit();
           this.#board[yAxis][xAxis] = 'hit';
           return;
@@ -58,10 +58,12 @@ export class Gameboard {
   isSunk() {
     for (let shipAndPosition of this.shipsAndPositions) {
       const { ship, position } = shipAndPosition;
-      console.log(ship, ship.length);
       if (!ship.isSunk()) return false;
     }
     return true;
+  }
+  getFromBoard(x, y) {
+    return this.#board[y][x];
   }
 
 }

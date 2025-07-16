@@ -25,12 +25,14 @@ export class GameController {
 
     const ship1 = new Ship(2);
     const ship2 = new Ship(4);
+    const ship3 = new Ship(3);
+    const ship4 = new Ship(5);
 
     DOMController.placeShipOnBoard(ship1, GameController.player1, [[0, 0], [0, 1]]);
     DOMController.placeShipOnBoard(ship2, GameController.player1, [[3, 3], [4, 3], [5, 3], [6, 3]]);
 
-    DOMController.placeShipOnBoard(ship1, GameController.player2, [[0, 0], [0, 1]]);
-    DOMController.placeShipOnBoard(ship2, GameController.player2, [[3, 3], [4, 3], [5, 3], [6, 3]]);
+    DOMController.placeShipOnBoard(ship3, GameController.player2, [[2, 1], [2, 2], [2, 3]]);
+    DOMController.placeShipOnBoard(ship4, GameController.player2, [[3, 4], [4, 4], [5, 4], [6, 4], [7, 4]]);
 
     // DOMController.renderShip(ship2, GameController.player1);
     // DOMController.renderShip(ship1, GameController.player1);
