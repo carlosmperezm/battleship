@@ -13,8 +13,8 @@ export class GameController {
   static startGame() {
     GameController.#gameboard1 = new Gameboard(8, 8);
     GameController.#gameboard2 = new Gameboard(8, 8);
-    GameController.#player1 = new Player(GameController.gameboard1, 'player1');
-    GameController.#player2 = new Player(GameController.gameboard2, 'player2');
+    GameController.#player1 = new Player(GameController.gameboard1, 'Human');
+    GameController.#player2 = new Player(GameController.gameboard2, 'Bot');
 
     GameController.player1.activate();
     GameController.player1.type = 'human';
@@ -28,11 +28,33 @@ export class GameController {
     const ship3 = new Ship(3);
     const ship4 = new Ship(5);
 
-    DOMController.placeShipOnBoard(ship1, GameController.player1, [[0, 0], [0, 1]]);
-    DOMController.placeShipOnBoard(ship2, GameController.player1, [[3, 3], [4, 3], [5, 3], [6, 3]]);
+    //Player1
+    DOMController.placeShipOnBoard(
+      ship1, GameController.player1, [[0, 0], [0, 1]]
+    );
+    DOMController.placeShipOnBoard(
+      ship3, GameController.player1, [[7, 7], [7, 6], [7, 5]]
+    );
+    DOMController.placeShipOnBoard(
+      ship2, GameController.player1, [[3, 3], [4, 3], [5, 3], [6, 3]]
+    );
+    DOMController.placeShipOnBoard(
+      ship1, GameController.player1, [[0, 7], [0, 6]]
+    );
 
-    DOMController.placeShipOnBoard(ship3, GameController.player2, [[2, 1], [2, 2], [2, 3]]);
-    DOMController.placeShipOnBoard(ship4, GameController.player2, [[3, 4], [4, 4], [5, 4], [6, 4], [7, 4]]);
+    //Player2
+    DOMController.placeShipOnBoard(
+      ship3, GameController.player2, [[2, 1], [2, 2], [2, 3]]
+    );
+    DOMController.placeShipOnBoard(
+      ship4, GameController.player2, [[3, 4], [4, 4], [5, 4], [6, 4], [7, 4]]
+    );
+    DOMController.placeShipOnBoard(
+      ship1, GameController.player2, [[5, 2], [6, 2]]
+    );
+    DOMController.placeShipOnBoard(
+      ship4, GameController.player2, [[0, 7], [1, 7], [2, 7], [3, 7]]
+    );
 
     // DOMController.renderShip(ship2, GameController.player1);
     // DOMController.renderShip(ship1, GameController.player1);

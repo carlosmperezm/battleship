@@ -33,7 +33,10 @@ export function attackHandler(evt) {
 
   //Validate if the player has sunk all opponent's ships
   if (opponentBoard.isSunk()) {
-    GameController.finishGame();
+    console.log('Game Board: ', opponentBoard);
+    console.log('BOARD: ', opponentBoard.board);
+    alert(`${currentPlayer.name} won`)
+    // GameController.finishGame();
     return;
   }
 
@@ -47,8 +50,8 @@ export function attackHandler(evt) {
       .querySelector(`.x-box[data-coordinate='${botAttackCoordinates}']`);
 
     divToAttack.click();
-    DOMController.renderBoard(currentOpponent);
-    DOMController.renderBoard(currentPlayer);
+    // DOMController.renderBoard(currentOpponent);
+    // DOMController.renderBoard(currentPlayer);
   } else {
     console.log('Bot attacked...Waiting for human to attack again');
   }

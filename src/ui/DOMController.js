@@ -22,9 +22,6 @@ export class DOMController {
         if (!xCoordinate || xCoordinate === 'ship') {
           xDiv.addEventListener('click', attackHandler);
         }
-        // If the board being created is the Bot's board, then add the clicks
-        // events so that the human player can click on the opponent's board
-
         xDiv.classList.add(`${xCoordinate}`);
         yDiv.appendChild(xDiv);
       }

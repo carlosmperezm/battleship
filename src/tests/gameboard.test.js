@@ -1,7 +1,7 @@
 import { Gameboard } from '../models/Gameboard.js';
 import { Ship } from '../models/Ship.js';
 
-describe('Ship Tests', () => {
+describe('Ship placement Tests', () => {
   let gameboard;
 
   beforeEach(() => {
@@ -45,7 +45,7 @@ describe('Ship Tests', () => {
       { ship: ship2, position: coordinates2 }
     ]);
     expect(gameboard.getFromBoard(1, 4)).toBe('ship');
-    expect(gameboard.getFromBoard(1, 4)).toBe('ship');
+    expect(gameboard.getFromBoard(2, 4)).toBe('ship');
 
     gameboard.placeShip(ship3, coordinates3);
     expect(gameboard.shipsAndPositions).toHaveLength(3);
@@ -211,14 +211,19 @@ describe('Sunk ships tests', () => {
     const ship4 = new Ship(2);
     gameboard.placeShip(ship4, [[0, 0], [1, 0]]);
 
-    //Ship 1 hit entirely
+    // Hit Ship 1 entirely 
     gameboard.receiveAttack(0, 1);
     gameboard.receiveAttack(1, 1);
-    //Ship 3 hit entirely
+
+    // Hit Ship 3 entirely
     gameboard.receiveAttack(7, 7);
     gameboard.receiveAttack(7, 6);
     gameboard.receiveAttack(7, 5);
-    //Ship 4 hit entirely
+
+    // Hit Ship 3 but no entirely
+    gameboard.receiveAttack(7, 6)
+
+    // Hit Ship 4 entirely
     gameboard.receiveAttack(0, 0);
     gameboard.receiveAttack(1, 0);
 

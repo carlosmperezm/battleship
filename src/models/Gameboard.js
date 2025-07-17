@@ -60,6 +60,13 @@ export class Gameboard {
       const { ship, position } = shipAndPosition;
       if (!ship.isSunk()) return false;
     }
+    for (let y = 0; y < this.board.length; y++) {
+      let yRow = this.board[y];
+      for (let x = 0; x < yRow.length; x++) {
+        let positionContent = yRow[x];
+        if (positionContent == 'ship') return false;
+      }
+    }
     return true;
   }
   getFromBoard(x, y) {
