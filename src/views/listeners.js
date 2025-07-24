@@ -56,6 +56,15 @@ export function attackHandler(evt) {
     console.log('Bot attacked...Waiting for human to attack again');
   }
 }
+export function randomizeShipsHandler(evt) {
+  const ship1 = new Ship(2);
+  const ship2 = new Ship(4);
+  const ship3 = new Ship(3);
+  const ship4 = new Ship(5);
+
+  GameController.placeShipsRandomly(ship1, ship2, ship3, ship4);
+
+}
 
 
 

@@ -1,4 +1,4 @@
-import { attackHandler } from "./listeners.js";
+import { attackHandler, randomizeShipsHandler } from "./listeners.js";
 
 export class DOMController {
   static #main = document.querySelector('main');
@@ -17,8 +17,7 @@ export class DOMController {
         xDiv.classList.add('board-square', 'x-box');
         xDiv.dataset.coordinate = [x, y];
 
-        // If the coordinate wasn't hit or isn't any ship in there
-        // add the event
+        // If the coordinate wasn't hit or isn't any ship in there add the event
         if (!xCoordinate || xCoordinate === 'ship') {
           xDiv.addEventListener('click', attackHandler);
         }
@@ -36,8 +35,12 @@ export class DOMController {
   }
   static renderBoard(player) {
     const previousBoardDiv = document.querySelector(`.${player.name}`);
+    const randomButton = document.querySelector('.random-button');
     if (previousBoardDiv) {
-      DOMController.main.removeChild(previousBoardDiv);
+      previousBoardDiv.remove();
+    }
+    if (randomButton) {
+      randomButton.remove();
     }
     const boardDiv = DOMController.createBoard(player);
     DOMController.main.appendChild(boardDiv);
@@ -64,6 +67,15 @@ export class DOMController {
     shipsContainer.classList.add('ships-container', player.name);
     shipsContainer.appendChild(shipDiv);
     DOMController.main.appendChild(shipsContainer);
+  }
+
+  static createRandomShipsPlacementButton() {
+    // FIX:Layout get messy when a new board is created
+    const button = document.createElement('button');
+    button.addEventListener('click', randomizeShipsHandler);
+    button.textContent = 'Set ships randomly';
+    button.classList.add('random-button');
+    DOMController.main.appendChild(button);
   }
 
   static get main() {

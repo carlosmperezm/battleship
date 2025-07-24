@@ -1,5 +1,5 @@
-import { Gameboard } from '../models/Gameboard.js';
-import { Ship } from '../models/Ship.js';
+import { Gameboard } from '../src/models/Gameboard.js';
+import { Ship } from '../src/models/Ship.js';
 
 describe('Ship placement Tests', () => {
   let gameboard;

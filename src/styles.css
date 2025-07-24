@@ -70,3 +70,10 @@ main {
 .ships-container.player2 {
   grid-area: ships2
 }
+
+button {
+  width: 100px;
+  height: 50px;
+  /* grid-area: ship; */
+  place-self: center;
+}

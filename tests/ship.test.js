@@ -1,4 +1,4 @@
-import { Ship } from '../models/Ship.js';
+import { Ship } from '../src/models/Ship.js';
 
 describe('Length', () => {
   const shipLength = 5;

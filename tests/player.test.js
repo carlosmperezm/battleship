@@ -1,4 +1,4 @@
-import { Player } from '../models/Player.js';
+import { Player } from '../src/models/Player.js';
 
 describe('Players Gameboards Creation tests', () => {
   test('Players have diferent gameboards', () => {
