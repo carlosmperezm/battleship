@@ -73,9 +73,10 @@ export class GameController {
   static placeShipsRandomly(...ships) {
     const directions = ['horizontal', 'vertical'];
     const currentPlayer = GameController.getCurrentPlayerTurn();
-    const limitNumber = currentPlayer.gameboard.length[0] - 1;
+    const opponentPlayer = GameController.getCurrentOpponent();
+
+    // Current Player's board
     ships.forEach((ship) => {
-      console.log('limit number: ', limitNumber)
       let direction = directions[Math.floor(Math.random() * 2)];
       let coordinates;
       if (direction == directions[0]) {
@@ -87,8 +88,23 @@ export class GameController {
           currentPlayer.gameboard, ship.length
         );
       }
-      console.log('COORDS: ', coordinates);
       DOMController.placeShipOnBoard(ship, currentPlayer, coordinates);
+    });
+
+    // Enemy's board
+    ships.forEach((ship) => {
+      let direction = directions[Math.floor(Math.random() * 2)];
+      let coordinates;
+      if (direction == directions[0]) {
+        coordinates = createHorizontalCoordinates(
+          opponentPlayer.gameboard, ship.length
+        );
+      } else {
+        coordinates = createVerticalCoordinates(
+          currentPlayer.gameboard, ship.length
+        );
+      }
+      DOMController.placeShipOnBoard(ship, opponentPlayer, coordinates);
     });
 
   }
