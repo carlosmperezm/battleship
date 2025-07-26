@@ -74,6 +74,22 @@ main {
 button {
   width: 100px;
   height: 50px;
-  /* grid-area: ship; */
   place-self: center;
+}
+
+.modal {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #ddd2;
+  backdrop-filter: blur(5px);
+  display: grid;
+  place-content: center;
+}
+
+.winner-text {
+  font-size: 2rem;
+  color: white;
 }

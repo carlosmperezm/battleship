@@ -62,7 +62,7 @@ export class GameController {
   static finishGame() {
     const modal = new Modal();
     console.log('MODAL: ', modal);
-    DOMController.main.append(modal.parentNode);
+    DOMController.main.append(modal);
   }
   static placeShipsRandomly(...ships) {
     const directions = ['horizontal', 'vertical'];
