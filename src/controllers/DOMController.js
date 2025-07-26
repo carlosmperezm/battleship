@@ -71,7 +71,6 @@ export class DOMController {
   }
 
   static createRandomShipsPlacementButton() {
-    // FIX:Layout get messy when a new board is created
     const button = document.createElement('button');
     button.addEventListener('click', randomizeShipsHandler);
     button.textContent = 'Set ships randomly';

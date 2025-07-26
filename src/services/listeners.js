@@ -7,7 +7,7 @@ export function attackHandler(evt) {
   const coordinates = evt.target.dataset.coordinate.split(',');
   const targetXCoordinate = Number.parseInt(coordinates[0]);
   const targetYCoordinate = Number.parseInt(coordinates[1]);
-  const currentPlayer = GameController.getCurrentPlayerTurn()
+  const currentPlayer = GameController.getCurrentPlayer()
   const currentOpponent = GameController.getCurrentOpponent();
   const opponentBoard = currentOpponent.gameboard;
 
@@ -29,10 +29,8 @@ export function attackHandler(evt) {
 
   //Validate if the player has sunk all opponent's ships
   if (opponentBoard.isSunk()) {
-    console.log('Game Board: ', opponentBoard);
-    console.log('BOARD: ', opponentBoard.board);
-    alert(`${currentPlayer.name} won`)
-    // GameController.finishGame();
+    console.log(`${currentPlayer.name} won`)
+    GameController.finishGame();
     return;
   }
 
