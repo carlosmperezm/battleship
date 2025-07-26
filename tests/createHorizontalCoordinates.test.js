@@ -1,4 +1,4 @@
-import { createHorizontalCoordinates } from "../src/sevices/createRandomCoordinates";
+import { createHorizontalCoordinates } from "../src/services/createRandomCoordinates";
 import { Gameboard } from "../src/models/Gameboard";
 
 test('Create a coordinates with length of 3', () => {

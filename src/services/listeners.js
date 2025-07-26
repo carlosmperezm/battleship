@@ -1,10 +1,6 @@
-import { Player } from '../models/Player.js';
-import { Gameboard } from '../models/Gameboard.js';
 import { Ship } from '../models/Ship.js';
-import { DOMController } from './DOMController.js';
-import { GameController } from './GameController.js';
-
-
+import { DOMController } from '../controllers/DOMController.js';
+import { GameController } from '../controllers/GameController.js';
 
 export function attackHandler(evt) {
   const targetedBoard = evt.target.parentNode.parentNode;

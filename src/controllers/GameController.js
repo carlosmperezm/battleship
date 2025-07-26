@@ -4,6 +4,11 @@ import { Ship } from '../models/Ship.js';
 
 import { DOMController } from './DOMController.js';
 
+import {
+  createVerticalCoordinates,
+  createHorizontalCoordinates
+} from '../services/createRandomCoordinates.js';
+
 export class GameController {
   static #player1;
   static #player2;
@@ -66,13 +71,22 @@ export class GameController {
     alert('Game ends')
   }
   static placeShipsRandomly(...ships) {
-    // const directions = ['horizontal', 'vertical'];
+    const directions = ['horizontal', 'vertical'];
     const currentPlayer = GameController.getCurrentPlayerTurn();
     const limitNumber = currentPlayer.gameboard.length[0] - 1;
     ships.forEach((ship) => {
       console.log('limit number: ', limitNumber)
-      // let direction = directions[Math.floor(Math.random() * 2)];
-      let coordinates = getRandomCoordinates(ship.length, limitNumber);
+      let direction = directions[Math.floor(Math.random() * 2)];
+      let coordinates;
+      if (direction == directions[0]) {
+        coordinates = createHorizontalCoordinates(
+          currentPlayer.gameboard, ship.length
+        );
+      } else {
+        coordinates = createVerticalCoordinates(
+          currentPlayer.gameboard, ship.length
+        );
+      }
       console.log('COORDS: ', coordinates);
       DOMController.placeShipOnBoard(ship, currentPlayer, coordinates);
     });
@@ -93,64 +107,4 @@ export class GameController {
   }
 
 
-}
-
-function getRandomCoordinates(coordinatesLength, boardSize, direction = 'horizontal') {
-  const coordinates = [];
-  const gameboard = GameController.getCurrentPlayerTurn().gameboard;
-  const rowLength = gameboard.length[0];
-  const randomNumber = Math.floor(Math.random() * rowLength);
-
-
-  if (direction == 'horizontal') {
-    // Placing ships in horizontal direction
-    console.log('Placing ships in horizontal direction')
-    const row = gameboard.board[randomNumber];
-    console.log('y-axis:', randomNumber);
-
-    let counter = 0;
-    let column = 0;
-
-    while (counter < coordinatesLength && column < rowLength) {
-      console.log('Checking on x-axis:', column);
-      const point = row[column];
-      if (point != 'ship' && column > 0 && row[column - 1] == 'ship') {
-        // Makes sure to not place ships right next to the others
-        // Basically set a margin for each ship
-        console.log('ship horizontal margin');
-      }
-      if (point != 'ship' && row > 0 && row - 1[column] == 'ship') {
-        // Makes sure to not place ships right next to the others
-        // Basically set a margin for each ship
-        console.log('ship vertical margin');
-      }
-      else if (point != 'ship' && !coordinates.includes([column, randomNumber])) {
-        // If there's no ship and the coordinates aren't include in the
-        // ship's coordinates already
-        console.log('No ship in this coordinate, saving data');
-        coordinates.push([column, randomNumber]);
-        counter++;
-      } else {
-        // If there is a ship, dump the data previously collected
-        console.log('There is a ship there, deleting prevous data');
-        coordinates.splice(0, coordinates.length - 1);
-        counter = 0;
-      }
-      // Move to the next column
-      console.log('Coordinates: ', coordinates);
-      column++;
-    }
-  }
-
-  if (coordinates.length != coordinatesLength) {
-    // If no coordinates could be found
-    // Try again with a different random number
-    console.log('Could not find a place:', randomNumber);
-    console.log('Trying again...');
-    return getRandomCoordinates(coordinatesLength, boardSize, direction);
-  } else {
-    // Coordinates were found for the whole ship
-    console.log('Found a coordinate for the ship');
-    return coordinates;
-  }
 }

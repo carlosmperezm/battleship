@@ -1,4 +1,5 @@
-import { attackHandler, randomizeShipsHandler } from "./listeners.js";
+
+import { attackHandler, randomizeShipsHandler } from "../services/listeners.js";
 
 export class DOMController {
   static #main = document.querySelector('main');
