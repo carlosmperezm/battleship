@@ -77,6 +77,10 @@ button {
   place-self: center;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .modal {
   width: 100vw;
   height: 100vh;

@@ -22,7 +22,14 @@ export class DOMController {
         if (!xCoordinate || xCoordinate === 'ship') {
           xDiv.addEventListener('click', attackHandler);
         }
-        xDiv.classList.add(`${xCoordinate}`);
+
+        // Not show the opponent's ships
+        if (
+          xCoordinate != 'ship' ||
+          (xCoordinate == 'ship' && player.type == 'human')
+        ) {
+          xDiv.classList.add(`${xCoordinate}`);
+        }
         yDiv.appendChild(xDiv);
       }
       boardDiv.appendChild(yDiv);
