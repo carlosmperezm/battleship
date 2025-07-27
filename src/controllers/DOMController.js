@@ -50,8 +50,11 @@ export class DOMController {
     if (randomButton) {
       randomButton.remove();
     }
+    const boardName = document.createElement('span');
+    boardName.textContent = `${player.name}'s board`;
+    boardName.classList.add('board-name', player.name);
     const boardDiv = DOMController.createBoard(player);
-    DOMController.main.appendChild(boardDiv);
+    DOMController.main.append(boardName, boardDiv);
   }
   static placeShipOnBoard(ship, player, coordinates) {
     player.gameboard.placeShip(ship, coordinates);
