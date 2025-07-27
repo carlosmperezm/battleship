@@ -61,7 +61,8 @@ export class GameController {
   }
   static finishGame() {
     const modal = new Modal();
-    console.log('MODAL: ', modal);
+    const playerName = GameController.getCurrentPlayer().name;
+    modal.querySelector('p').textContent = `${playerName} won`;
     DOMController.main.append(modal);
   }
   static placeShipsRandomly(...ships) {
